@@ -1,57 +1,63 @@
 <?php
-require 'koneksi.php';
-
 if (!isset($_GET['nim'])) {
-    header("Location: index.php");
-    exit();
+  header('Location: index.php?page=mahasiswa');
+  exit;
+}
+$nim = $_GET['nim'];
+
+$sqlMhs = "SELECT * FROM mahasiswa WHERE nim = '$nim'";
+$resMhs = mysqli_query($koneksi, $sqlMhs);
+$mhs    = mysqli_fetch_assoc($resMhs);
+if (!$mhs) {
+  header('Location: index.php?page=mahasiswa');
+  exit;
 }
 
-$nim  = $_GET['nim'];
-$sql  = mysqli_query($koneksi, "SELECT * FROM mahasiswa WHERE nim='$nim'");
-$data = mysqli_fetch_assoc($sql);
-
-if (!$data) {
-    echo "Data tidak ditemukan";
-    exit();
-}
+$sqlProdi = "SELECT * FROM prodi ORDER BY nama_prodi ASC";
+$prodiRes = mysqli_query($koneksi, $sqlProdi);
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Mahasiswa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container py-4">
-    <h1 class="mb-4">Edit Data Mahasiswa</h1>
+<h1>Edit Data Mahasiswa</h1>
 
-    <form method="post" action="proses.php">
-        <input type="hidden" name="nim_lama" value="<?php echo $data['nim']; ?>">
-        <div class="mb-3">
-            <label class="form-label">NIM</label>
-            <input type="text" name="nim" class="form-control"
-                   value="<?php echo $data['nim']; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Nama Mahasiswa</label>
-            <input type="text" name="nama_mhs" class="form-control"
-                   value="<?php echo $data['nama_mhs']; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Tanggal Lahir</label>
-            <input type="date" name="tgl_lahir" class="form-control"
-                   value="<?php echo $data['tgl_lahir']; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Alamat</label>
-            <textarea name="alamat" class="form-control" rows="3" required><?php
-                echo $data['alamat']; ?></textarea>
-        </div>
-        <button type="submit" name="update" class="btn btn-primary">Perbarui</button>
-        <a href="index.php" class="btn btn-outline-secondary">Kembali</a>
+<div class="row">
+  <div class="col-md-6">
+    <form action="proses.php?aksi=update" method="post">
+      <input type="hidden" name="nim_lama" value="<?= htmlspecialchars($mhs['nim']); ?>">
+
+      <div class="mb-3">
+        <label class="form-label" for="nim">NIM</label>
+        <input type="text" name="nim" id="nim" class="form-control" value="<?= htmlspecialchars($mhs['nim']); ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="nama_mhs">Nama Mahasiswa</label>
+        <input type="text" name="nama_mhs" id="nama_mhs" class="form-control" value="<?= htmlspecialchars($mhs['nama_mhs']); ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="prodi_id">Prodi</label>
+        <select name="prodi_id" id="prodi_id" class="form-select" required>
+    <option value="">-- Pilih Prodi --</option>
+    <?php while($p = mysqli_fetch_assoc($prodiRes)): ?>
+        <option value="<?= $p['id']; ?>" <?= ($p['id'] == $mhs['prodi_id']) ? 'selected' : ''; ?>>
+            <?= htmlspecialchars($p['nama_prodi']); ?> (<?= htmlspecialchars($p['jenjang']); ?>)
+        </option>
+    <?php endwhile; ?>
+</select>
+
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="tgl_lahir">Tanggal Lahir</label>
+        <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control" value="<?= htmlspecialchars($mhs['tgl_lahir']); ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="alamat">Alamat</label>
+        <textarea name="alamat" id="alamat" rows="3" class="form-control" required><?= htmlspecialchars($mhs['alamat']); ?></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Perbarui</button>
+      <a href="index.php?page=mahasiswa" class="btn btn-secondary">Kembali</a>
     </form>
+  </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

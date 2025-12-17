@@ -1,67 +1,52 @@
 <?php
 require 'koneksi.php';
 ?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Mahasiswa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        .table thead th {
-            border-bottom-width: 2px;
-        }
-        .table tbody tr:last-child td {
-            border-bottom: 0;
-        }
-    </style>
-</head>
-<body>
-<div class="container py-4">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Akademik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-warning">
+      <div class="container">
+        <a class="navbar-brand" href="index.php">Akademik</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link <?= (!isset($_GET['page']) || $_GET['page']=='home')?'active':''; ?>" href="index.php?page=home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= (isset($_GET['page']) && $_GET['page']=='mahasiswa')?'active':''; ?>" href="index.php?page=mahasiswa">Data Mahasiswa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= (isset($_GET['page']) && $_GET['page']=='create_mhs')?'active':''; ?>" href="index.php?page=create_mhs">Tambah Mahasiswa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= (isset($_GET['page']) && $_GET['page']=='prodi')?'active':''; ?>" href="index.php?page=prodi">Prodi</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <h1 class="mb-4">List Data Mahasiswa</h1>
+    <div class="container my-4">
+      <?php
+      $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-    <a href="create.php" class="btn btn-success mb-3">Tambah Mahasiswa</a>
+      if ($page == 'home')        include 'home.php';
+      if ($page == 'mahasiswa')   include 'list.php';
+      if ($page == 'create_mhs')  include 'create.php';
+      if ($page == 'edit_mhs')    include 'edit.php';
+      if ($page == 'prodi')       include 'prodi.php';
+      ?>
+    </div>
 
-    <table class="table align-middle">
-        <thead>
-        <tr>
-            <th style="width:60px;">NO</th>
-            <th style="width:140px;">NIM</th>
-            <th style="width:220px;">Nama Mahasiswa</th>
-            <th style="width:160px;">Tanggal Lahir</th>
-            <th>Alamat</th>
-            <th style="width:200px; text-align:center;">Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        $no = 1;
-        $sql = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
-        while ($data = mysqli_fetch_assoc($sql)) {
-        ?>
-            <tr>
-                <td><?php echo $no++; ?></td>
-                <td><?php echo $data['nim']; ?></td>
-                <td><?php echo $data['nama_mhs']; ?></td>
-                <td><?php echo $data['tgl_lahir']; ?></td>
-                <td><?php echo $data['alamat']; ?></td>
-                <td class="text-center">
-                    <a href="edit.php?nim=<?php echo $data['nim']; ?>"
-                       class="btn btn-warning btn-sm me-2" style="min-width:70px;">Edit</a>
-                    <a href="proses.php?delete=<?php echo $data['nim']; ?>"
-                       class="btn btn-danger btn-sm" style="min-width:70px;"
-                       onclick="return confirm('Yakin hapus data?');">Delete</a>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
