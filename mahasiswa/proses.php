@@ -3,7 +3,7 @@ require 'koneksi.php';
 
 $aksi = isset($_GET['aksi']) ? $_GET['aksi'] : '';
 
-/* ====== MAHASISWA ====== */
+/* ===== MAHASISWA ===== */
 
 if ($aksi == 'tambah') {
 
@@ -24,7 +24,7 @@ if ($aksi == 'tambah') {
     $nim_lama  = $_POST['nim_lama'];
     $nim       = $_POST['nim'];
     $nama_mhs  = $_POST['nama_mhs'];
-    $prodi_id  = (int) $_POST['prodi_id'];   // pastikan id prodi
+    $prodi_id  = (int) $_POST['prodi_id'];
     $tgl_lahir = $_POST['tgl_lahir'];
     $alamat    = $_POST['alamat'];
 
@@ -35,7 +35,6 @@ if ($aksi == 'tambah') {
                 tgl_lahir = '$tgl_lahir',
                 alamat    = '$alamat'
             WHERE nim = '$nim_lama'";
-
     mysqli_query($koneksi, $sql);
     header('Location: index.php?page=mahasiswa');
     exit;
@@ -47,7 +46,7 @@ if ($aksi == 'tambah') {
     header('Location: index.php?page=mahasiswa');
     exit;
 
-/* ====== PRODI ====== */
+/* ===== PRODI ===== */
 
 } elseif ($aksi == 'prodi_tambah') {
 
@@ -73,7 +72,6 @@ if ($aksi == 'tambah') {
                 jenjang    = '$jenjang',
                 keterangan = '$keterangan'
             WHERE id = $id";
-
     mysqli_query($koneksi, $sql);
     header('Location: index.php?page=prodi');
     exit;
