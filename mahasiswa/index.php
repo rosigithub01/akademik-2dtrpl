@@ -2,6 +2,13 @@
 require 'koneksi.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+//session | cookies
+session_start();
+// cek login sudah ada atau belum
+if(!isset($_SESSION['login'])){
+  header('Location: login.php');
+}
 ?>
 <!doctype html>
 <html lang="id">
