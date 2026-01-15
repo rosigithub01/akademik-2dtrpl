@@ -27,7 +27,6 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
-
                         <?php
                         if (isset($_POST['email'])) {
                             $email = $_POST['email'];

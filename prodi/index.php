@@ -15,9 +15,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'list';
   <meta charset="utf-8">
   <title>Akademik - Prodi</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons (boleh dihapus kalau sudah dimuat lewat layout lain) -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -42,7 +40,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'list';
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-           <a href="index.php?page=edit_profile" class="btn btn-dark btn-sm me-2">
+          <a href="../mahasiswa/index.php?page=edit_profile" class="btn btn-dark btn-sm me-2">
             <i class="bi bi-person-circle me-1"></i> Edit Profil
           </a>
         </li>

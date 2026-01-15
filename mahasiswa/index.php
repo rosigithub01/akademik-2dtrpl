@@ -15,9 +15,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
   <meta charset="utf-8">
   <title>Akademik</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -55,7 +53,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     </div>
   </div>
 </nav>
-
 <div class="container mb-5">
 <?php
 if ($page == 'home') {

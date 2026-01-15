@@ -1,5 +1,4 @@
 <?php
-// jangan session_start lagi kalau sudah di index
 require 'koneksi.php';
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
